@@ -5,6 +5,7 @@ import imge from './Assets/e.png';
 import evaluate from "./Algorithm/Evaluate";
 import isFull from "./Algorithm/Finish";
 import enemyMove from "./Algorithm/Enemy";
+import Anouncement from "./Components/Anouncement";
 import Menu from "./Components/Menu";
 import './App.css';
 
@@ -24,10 +25,10 @@ const App = () => {
             setBox(enemyMove(box,isHard));
             setTurn(true);
         }
-    },[box, turn]);
+    },[box, turn,isHard]);
 
     const clicked = (x,y) => {
-        if(box[x][y] == '' && start){
+        if(box[x][y] === '' && start){
             let newBox = box;
             newBox[x][y] ='o';
             setTurn(false);
@@ -36,8 +37,8 @@ const App = () => {
     }
 
     const check = (i) => {
-        if(i == '') return imge;
-        else if(i == 'x') return imgx;
+        if(i === '') return imge;
+        else if(i === 'x') return imgx;
         else return imgo;
     }
 
@@ -46,13 +47,22 @@ const App = () => {
         setWin('');
     }
 
+    const cursor = (val) => {
+        if(val === '') return 'pointer';
+        else return 'default';
+    }
+
     const mappedBox = box.map((val,idx)=>{
         return <tr key={idx}>
             {
                 val.map((val2,idx2) => {
                     return (
                         <td onClick={()=>clicked(idx,idx2)} key={idx2}>
-                            <img src={check(val2)} className="img-fluid p-3"/>
+                            <img 
+                                alt={val2}
+                                src={check(val2)} 
+                                className={`img-fluid p-3 ${val2 === '' ? ' free' : ' selected'}`} 
+                                style={{cursor:cursor(val2)}}/>
                         </td>
                     )
                 })
@@ -77,29 +87,6 @@ const App = () => {
             </section>
         </div>
     );
-}
-
-const Anouncement = ({win,start}) => {
-    const winText = (res) => {
-        if(res === "Draw") return res;
-        else return `${res.toUpperCase()} Menang`;
-    }
-
-    if(win === '' && start) return null;
-
-    return(
-        <div className="h-100 position-absolute w-100 text-light">
-            <section className="w-100 h-100 d-flex justify-content-center align-items-center">
-                {!start ? 
-                    <section className="text-center">
-                        <h1>TIC TAC TOE</h1>
-                        <span>By Hanif Ulunnuha Hidayat</span>
-                    </section>:
-                    <h1>{win === '' ? '' : winText(win) }</h1>
-                }
-            </section>
-        </div>
-    )
 }
 
 export default App;

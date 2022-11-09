@@ -7,6 +7,7 @@ const Menu = ({setStart,start,reset,setHard,setFirst,isHard, first,setTurn}) => 
     } 
 
     const exit = () => {
+        setTurn(true);
         setStart(false);
         reset();
     }
@@ -47,13 +48,13 @@ const StartMenu = ({handleStart,setHard,setFirst,isHard,first}) => {
     return(
         <>
             <div className="form-check">
-                <input className="form-check-input" type="checkbox" checked={isHard} onClick={handleHard}/>
+                <input className="form-check-input" type="checkbox" checked={isHard} onChange={handleHard}/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                     Hard
                 </label>
             </div>
             <div className="form-check">
-                <input className="form-check-input" type="checkbox" checked={first} onClick={handleFirst}/>
+                <input className="form-check-input" type="checkbox" checked={first} onChange={handleFirst}/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                     Go First
                 </label>

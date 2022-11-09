@@ -2,8 +2,7 @@ import evaluate from "./Evaluate";
 
 class Move
 {
-    constructor()
-    {
+    constructor(){
         let x,y;
     }
 }
@@ -11,7 +10,7 @@ class Move
 const canMove = (data) => {
     for (let i = 0; i < 3; i++){
         for (let j = 0; j < 3; j++){
-            if(data[i][j] == '') return true;
+            if(data[i][j] === '') return true;
         }    
     }
     
@@ -21,18 +20,18 @@ const canMove = (data) => {
 const minimax = (data,depth,isMax) => {
     let score = evaluate(data);
   
-    if (score == 'x') return 1;
+    if (score === 'x') return 1;
   
-    if (score == 'o') return -1;
+    if (score === 'o') return -1;
   
-    if (canMove(data) == false) return 0;
+    if (canMove(data) === false) return 0;
   
     if (isMax){
         let best = -1000;
 
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
-                if (data[i][j]=='')
+                if (data[i][j]==='')
                 {
                     data[i][j] = 'x';
                     best = Math.max(best, minimax(data, depth + 1, !isMax));
@@ -50,7 +49,7 @@ const minimax = (data,depth,isMax) => {
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                  
-                if (data[i][j] == '')
+                if (data[i][j] === '')
                 {
                     data[i][j] = 'o';
                     best = Math.min(best, minimax(data, depth + 1, !isMax));
@@ -74,7 +73,7 @@ function findBestMove(data)
     {
         for(let j = 0; j < 3; j++)
         {
-            if (data[i][j] == '')
+            if (data[i][j] === '')
             {
                 data[i][j] = 'x';
                 let moveVal = minimax(data, 0, false);
